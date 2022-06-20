@@ -1,0 +1,70 @@
+[alias]
+    #########
+    # stage and unstage
+    #########
+    stage = add
+    st = stage
+    stage-all = add -A :/
+    sta = stage-all
+    stage-some = add -i
+    ss = stage-some
+    stage-parts = add -p
+    sp = stage-parts
+
+    unstage = restore --staged
+    unst = unstage
+    unstage-all = restore --staged .
+    unsta = unstage-all
+    undo-unstaged = restore .
+    undo = undo-unstaged
+
+    diff-staged = diff --cached
+    ds = diff-staged
+
+    #########
+    # commit and uncommit
+    #########
+    cm = commit
+    commit-all = !git stage-all && !git cm
+    cma = commit-all
+    uncommit = reset --soft @^
+    unc = uncommit
+    drop-commit = reset --hard @^
+    drop = drop-commit
+
+    wip = commit -am "WIP" --no-verify
+    append = commit --amend --no-edit
+    cp = cherry-pick
+
+    rewrite-history = rebase -i
+    rh = rewrite-history
+
+    #########
+    # branches
+    #########
+    list-branches = branch
+    lb = branch
+    select-branch = switch
+    sb = switch
+    delete-branch = branch -D
+    db = branch -D
+    new-branch = switch -c
+    nb = new-branch
+    recent = branch --sort=-committerdate
+
+    #########
+    # other navigation
+    #########
+    jump-to = checkout
+    j = jump-to
+    name-of = rev-parse --abbrev-ref
+    name = name-of
+    last = show @
+    root = rev-parse --show-toplevel
+
+    #########
+    # utility
+    #########
+    rhx = !git rebase -i $(git log --oneline --no-color -n20 | fzf | awk '{print $1}')~1
+    reci = rebase --continue
+    count-lines = !git ls-files | xargs cat | wc -l | xargs
