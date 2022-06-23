@@ -51,6 +51,8 @@
     new-branch = switch -c
     nb = new-branch
     recent = branch --sort=-committerdate
+    pick-branch = !git select-branch $(git branch --list --no-color | fzf | xargs)
+    pb = pick-branch
 
     #########
     # other navigation
