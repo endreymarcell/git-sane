@@ -1,43 +1,50 @@
 [alias]
     #########
+    # undo changes
+    #########
+    undo = restore
+    u = u
+    undo-all = restore .
+    ua = undo-all
+
+    #########
     # stage and unstage
     #########
     stage = add
-    st = stage
+    s = stage
     stage-all = add -A :/
-    sta = stage-all
-    stage-some = add -i
-    ss = stage-some
-    stage-parts = add -p
-    sp = stage-parts
+    sa = stage-all
+    stage-files = add -i
+    sf = stage-some
+    stage-lines = add -p
+    sl = stage-parts
 
     unstage = restore --staged
-    unst = unstage
+    us = unstage
     unstage-all = restore --staged .
-    unsta = unstage-all
-    undo-unstaged = restore .
-    undo = undo-unstaged
+    usa = unstage-all
 
+
+    #########
+    # diffing
+    #########
     diff-staged = diff --cached
     ds = diff-staged
 
     #########
     # commit and uncommit
     #########
+    c = commit
     cm = commit
     commit-all = !git stage-all && !git cm
-    cma = commit-all
+    ca = commit-all
+
     uncommit = reset --soft @^
-    unc = uncommit
+    uc = uncommit
+    invert-commit = revert
+    ic = invert-commit
     drop-commit = reset --hard @^
-    drop = drop-commit
-
-    wip = commit -am "WIP" --no-verify
-    append = commit --amend --no-edit
-    cp = cherry-pick
-
-    rewrite-history = rebase -i
-    rh = rewrite-history
+    dc = drop-commit
 
     #########
     # branches
@@ -48,8 +55,9 @@
     sb = switch
     delete-branch = branch -D
     db = branch -D
-    new-branch = switch -c
-    nb = new-branch
+    create-branch = switch -c
+    cb = create-branch
+
     recent = branch --sort=-committerdate
     pick-branch = !git select-branch $(git branch --list --no-color | fzf | xargs)
     pb = pick-branch
@@ -67,6 +75,12 @@
     #########
     # utility
     #########
+    wip = commit -am WIP --no-verify
+    append = commit --amend --no-edit
+    cp = cherry-pick
+
+    rewrite-history = rebase -i
+    rh = rewrite-history
     rhx = !git rebase -i $(git log --oneline --no-color -n20 | fzf | awk '{print $1}')~1
     reci = rebase --continue
     count-lines = !git ls-files | xargs cat | wc -l | xargs
