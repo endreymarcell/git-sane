@@ -78,6 +78,9 @@
     wip = commit -am WIP --no-verify
     append = commit --amend --no-edit
     cp = cherry-pick
+    update-from-master = !git select-branch master && git pull && git select-branch - && git rebase master
+    ufm = update-from-master
+
 
     rewrite-history = rebase -i
     rh = rewrite-history
